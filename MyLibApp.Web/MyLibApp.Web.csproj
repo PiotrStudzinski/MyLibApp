@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyLibApp.Application\MyLibApp.Application.csproj" />
+    <ProjectReference Include="..\MyLibApp.Infrastructure\MyLibApp.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
