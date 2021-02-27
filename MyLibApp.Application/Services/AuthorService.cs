@@ -30,6 +30,11 @@ namespace MyLibApp.Application.Services
             return id;
         }
 
+        public void DeleteAuthor(int id)
+        {
+            _authorRepository.DeleteAuthor(id);
+        }
+
         public AuthorListVm GetAllAuthorForList()
         {
             var authors = _authorRepository.GetAllAuthors()
@@ -48,6 +53,20 @@ namespace MyLibApp.Application.Services
             var authorVm = _mapper.Map<AuthorDetailsVm>(author);
 
             return authorVm;
+        }
+
+        public AuthorNewVm GetAuthorForEdit(int authorId)
+        {
+            var author = _authorRepository.GetAuthorById(authorId);
+            var authorVm = _mapper.Map<AuthorNewVm>(author);
+
+            return authorVm;
+        }
+
+        public void UpdateAuthor(AuthorNewVm model)
+        {
+            var author = _mapper.Map<Author>(model);
+            _authorRepository.UpdateAuthor(author);
         }
     }
 }

@@ -10,5 +10,8 @@ namespace MyLibApp.Application.Interfaces
         AuthorListVm GetAllAuthorForList();
         int AddAuthor(AuthorNewVm author);
         AuthorDetailsVm GetAuthorDetails(int authorId);
+        AuthorNewVm GetAuthorForEdit(int authorId);
+        void UpdateAuthor(AuthorNewVm model);
+        void DeleteAuthor(int id);
     }
 }
