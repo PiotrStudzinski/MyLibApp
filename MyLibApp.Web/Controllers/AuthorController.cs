@@ -34,8 +34,15 @@ namespace MyLibApp.Web.Controllers
         [HttpPost]
         public IActionResult Create(AuthorNewVm model)
         {
-            var id = _authorService.AddAuthor(model);
+            _authorService.AddAuthor(model);
 
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _authorService.DeleteAuthor(id);
+            
             return RedirectToAction("Index");
         }
 
@@ -45,6 +52,22 @@ namespace MyLibApp.Web.Controllers
             var model = _authorService.GetAuthorDetails(id);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var author = _authorService.GetAuthorForEdit(id);
+            
+            return View(author);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AuthorNewVm model)
+        {
+            _authorService.UpdateAuthor(model);
+
+            return RedirectToAction("Index");
         }
     }
 }
