@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using MyLibApp.Application.Interfaces;
 using MyLibApp.Application.Services;
+using MyLibApp.Application.ViewModels.Author;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -13,7 +15,10 @@ namespace MyLibApp.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<IAuthorService, AuthorService>();
+            
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddTransient<IValidator<AuthorNewVm>, AuthorNewValidation>();
 
             return services;
         }
