@@ -12,6 +12,9 @@ namespace MyLibApp.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IItemTypeRepository, ItemTypeRepository>();
 
             return services;
         }
