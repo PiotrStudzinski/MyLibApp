@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MyLibApp.Application.Interfaces;
 using MyLibApp.Application.ViewModels.ItemType;
 using MyLibApp.Domain.Interfaces;
+using MyLibApp.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MyLibApp.Application.Services
@@ -21,32 +24,50 @@ namespace MyLibApp.Application.Services
 
         public int AddItemType(ItemTypeNewVm itemType)
         {
-            throw new NotImplementedException();
+            var newItemType = _mapper.Map<ItemType>(itemType);
+            var id = _itemTypeRepository.AddItemType(newItemType);
+
+            return id;
         }
 
         public void DeleteItemType(int itemTypeId)
         {
-            throw new NotImplementedException();
+            _itemTypeRepository.DeleteItemType(itemTypeId);
         }
 
         public ItemTypeListVm GetAllItemTypeForList()
         {
-            throw new NotImplementedException();
+            var itemTypes = _itemTypeRepository.GetAllItemTypes()
+                .ProjectTo<ItemTypeForListVm>(_mapper.ConfigurationProvider).ToList();
+            var itemTypeList = new ItemTypeListVm()
+            {
+                ItemTypes = itemTypes
+            };
+
+            return itemTypeList;
         }
 
         public ItemTypeDetailsVm GetItemTypeDetails(int itemTypeId)
         {
-            throw new NotImplementedException();
+            var itemType = _itemTypeRepository.GetItemTypeById(itemTypeId);
+            var itemTypeVm = _mapper.Map<ItemTypeDetailsVm>(itemType);
+
+            return itemTypeVm;
         }
 
         public ItemTypeNewVm GetItemTypeForEdit(int itemTypeId)
         {
-            throw new NotImplementedException();
+            var itemType = _itemTypeRepository.GetItemTypeById(itemTypeId);
+            var itemTypeVm = _mapper.Map<ItemTypeNewVm>(itemType);
+
+            return itemTypeVm;
         }
 
         public void UpdateItemType(ItemTypeNewVm model)
         {
-            throw new NotImplementedException();
+            var itemType = _mapper.Map<ItemType>(model);
+
+            _itemTypeRepository.UpdateItemType(itemType);
         }
     }
 }
